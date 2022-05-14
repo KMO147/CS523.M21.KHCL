@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <script type="module">
+        import * as THREE from './three.module.js';
+        import { OrbitControls } from './OrbitControls.js';
+        import {TransformControls} from './TransformControls.js'
+
+        let scene, camera, renderer, orbit, tControl, tControl2, tControl3
+
+        scene = new THREE.Scene();
+
+        camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.01, 30000 );
+        camera.position.set(1, 1, 5);
+
+        renderer = new THREE.WebGLRenderer();
+        renderer.setSize( window.innerWidth, window.innerHeight );
+        document.body.appendChild( renderer.domElement );
+        
+        const geometry = new THREE.BoxGeometry(1, 1, 1);
+        const material = new THREE.MeshBasicMaterial()
+        
+        const cube = new THREE.Mesh( geometry, material );
+        scene.add( cube );
+
+        scene.add(new THREE.GridHelper(10,20))
+
+        orbit = new OrbitControls(camera, renderer.domElement)
+        tControl = new TransformControls(camera, renderer.domElement)
+
+
+        tControl.addEventListener('dragging-changed', (e)=>{
+            orbit.enabled = !e.value
+        })
+
+        tControl.attach(cube)
+        scene.add(tControl)
+
+		
+		window.addEventListener( 'resize', onWindowResize );
+
+		window.addEventListener( 'keydown', function ( event ) {
+
+		switch ( event.keyCode ) {
+			case 87: // W
+				tControl.setMode( 'translate' );
+				break;
+
+			case 69: // E
+				tControl.setMode( 'rotate' );
+				break;
+
+			case 82: // R
+				tControl.setMode( 'scale' );
+				break;
+		};
+		});
+		window.addEventListener( 'keyup', function ( event ) {
+
+		switch ( event.keyCode ) {
+
+			case 16: // Shift
+				control.setTranslationSnap( null );
+				control.setRotationSnap( null );
+				control.setScaleSnap( null );
+				break;
+
+		}
+
+		} );
+		function onWindowResize() {
+
+			const aspect = window.innerWidth / window.innerHeight;
+
+			cameraPersp.aspect = aspect;
+			cameraPersp.updateProjectionMatrix();
+
+			cameraOrtho.left = cameraOrtho.bottom * aspect;
+			cameraOrtho.right = cameraOrtho.top * aspect;
+			cameraOrtho.updateProjectionMatrix();
+
+			renderer.setSize( window.innerWidth, window.innerHeight );
+
+			render();
+
+		}
+
+        tControl.setMode('translate')
+
+        const loader = new THREE.TextureLoader()
+        loader.load('./mokeywit-logo.png', (texture)=>{
+            material.map = texture
+            animate()
+        })
+
+        function animate() {
+            requestAnimationFrame(animate)
+            //cube.rotation.x += 0.01
+            //cube.rotation.y += 0.01
+            renderer.render(scene, camera)
+        }
+    </script>
+    
+</body>
+</html>
