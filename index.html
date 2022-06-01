@@ -26,7 +26,7 @@
         import { OrbitControls } from '/libs/OrbitControls.js';
         import {TransformControls} from '/libs/TransformControls.js'
 
-        var scene, camera, renderer, orbit, control, t
+        var scene, camera, renderer, orbit, control, CurrentPos, pos, t
         t = 1
 
         scene = new THREE.Scene();
@@ -59,12 +59,12 @@
         
         var object = new THREE.Mesh( geometry, material );
         scene.add( object );
+        CurrentPos = new THREE.Vector3();
 
         scene.add(new THREE.GridHelper(10,20))
 
         orbit = new OrbitControls(camera, renderer.domElement)
         control = new TransformControls(camera, renderer.domElement)
-
 
         control.addEventListener('dragging-changed', (e)=>{
             orbit.enabled = !e.value
@@ -101,11 +101,15 @@
                 scene.remove(control);
                 if (t == 1){
                     t ++;
+                    CurrentPos = object.position;
                     geometry = new THREE.SphereGeometry(1, 32, 16);
                     material = new THREE.MeshLambertMaterial({color: 'yellow'});
                                 
                     object = new THREE.Mesh( geometry, material );
                     scene.add( object );
+                    object.position.x = CurrentPos.x;
+                    object.position.y = CurrentPos.y;
+                    object.position.z = CurrentPos.z;
 
                     control.attach(object);
                     scene.add(control);
@@ -117,11 +121,15 @@
                 }
                 else if (t == 2){
                     t ++;
+                    CurrentPos = object.position;
                     geometry = new THREE.TetrahedronGeometry(1, 0);
                     material = new THREE.MeshLambertMaterial({color: 'yellow'});
                                 
                     object = new THREE.Mesh( geometry, material );
                     scene.add( object );
+                    object.position.x = CurrentPos.x;
+                    object.position.y = CurrentPos.y;
+                    object.position.z = CurrentPos.z;
 
                     control.attach(object);
                     scene.add(control);
@@ -133,11 +141,15 @@
                 }
                 else if (t == 3){
                     t ++;
+                    CurrentPos = object.position;
                     geometry = new THREE.CylinderGeometry(1, 1, 1.5, 8);
                     material = new THREE.MeshLambertMaterial({color: 'yellow'});
                                 
                     object = new THREE.Mesh( geometry, material );
                     scene.add( object );
+                    object.position.x = CurrentPos.x;
+                    object.position.y = CurrentPos.y;
+                    object.position.z = CurrentPos.z;
 
                     control.attach(object);
                     scene.add(control);
@@ -149,11 +161,15 @@
                 }
                 else{
                     t = 1;
+                    CurrentPos = object.position;
                     geometry = new THREE.BoxGeometry(1, 1, 1);
                     material = new THREE.MeshLambertMaterial({color: 'yellow'})
                     
                     object = new THREE.Mesh( geometry, material );
                     scene.add( object );
+                    object.position.x = CurrentPos.x;
+                    object.position.y = CurrentPos.y;
+                    object.position.z = CurrentPos.z;
 
                     control.attach(object)
                     scene.add(control)
