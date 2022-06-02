@@ -55,7 +55,7 @@
          });
 
         var geometry = new THREE.BoxGeometry(1, 1, 1);
-        var material = new THREE.MeshLambertMaterial({color: 'yellow'})
+        var material = new THREE.MeshLambertMaterial({color: 'skyblue'})
         
         var object = new THREE.Mesh( geometry, material );
         scene.add( object );
@@ -101,16 +101,15 @@
                 scene.remove(control);
                 if (t == 1){
                     t ++;
+                    control.setMode('translate')
                     CurrentPos = object.position;
                     geometry = new THREE.SphereGeometry(1, 32, 16);
-                    material = new THREE.MeshLambertMaterial({color: 'yellow'});
+                    material = new THREE.MeshLambertMaterial({color: 'skyblue'});
                                 
                     object = new THREE.Mesh( geometry, material );
                     scene.add( object );
-                    object.position.x = CurrentPos.x;
-                    object.position.y = CurrentPos.y;
-                    object.position.z = CurrentPos.z;
-
+                    object.position.copy(CurrentPos);
+                    
                     control.attach(object);
                     scene.add(control);
 
@@ -121,15 +120,14 @@
                 }
                 else if (t == 2){
                     t ++;
+                    control.setMode('translate')
                     CurrentPos = object.position;
                     geometry = new THREE.TetrahedronGeometry(1, 0);
-                    material = new THREE.MeshLambertMaterial({color: 'yellow'});
+                    material = new THREE.MeshLambertMaterial({color: 'skyblue'});
                                 
                     object = new THREE.Mesh( geometry, material );
                     scene.add( object );
-                    object.position.x = CurrentPos.x;
-                    object.position.y = CurrentPos.y;
-                    object.position.z = CurrentPos.z;
+                    object.position.copy(CurrentPos);
 
                     control.attach(object);
                     scene.add(control);
@@ -141,15 +139,14 @@
                 }
                 else if (t == 3){
                     t ++;
+                    control.setMode('translate')
                     CurrentPos = object.position;
                     geometry = new THREE.CylinderGeometry(1, 1, 1.5, 8);
-                    material = new THREE.MeshLambertMaterial({color: 'yellow'});
+                    material = new THREE.MeshLambertMaterial({color: 'skyblue'});
                                 
                     object = new THREE.Mesh( geometry, material );
                     scene.add( object );
-                    object.position.x = CurrentPos.x;
-                    object.position.y = CurrentPos.y;
-                    object.position.z = CurrentPos.z;
+                    object.position.copy(CurrentPos);
 
                     control.attach(object);
                     scene.add(control);
@@ -161,15 +158,14 @@
                 }
                 else{
                     t = 1;
+                    control.setMode('translate')
                     CurrentPos = object.position;
                     geometry = new THREE.BoxGeometry(1, 1, 1);
-                    material = new THREE.MeshLambertMaterial({color: 'yellow'})
+                    material = new THREE.MeshLambertMaterial({color: 'skyblue'})
                     
                     object = new THREE.Mesh( geometry, material );
                     scene.add( object );
-                    object.position.x = CurrentPos.x;
-                    object.position.y = CurrentPos.y;
-                    object.position.z = CurrentPos.z;
+                    object.position.copy(CurrentPos);
 
                     control.attach(object)
                     scene.add(control)
